@@ -1,0 +1,39 @@
+"""Experiment config loading."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+from zynamics.datasets import LorenzDatasetConfig
+from zynamics.models.base import BaseModelConfig
+from zynamics.training import TrainerConfig
+from zynamics.utils.yaml import load_yaml
+
+
+@dataclass
+class ExperimentConfig:
+    dataset: LorenzDatasetConfig
+    model: BaseModelConfig
+    trainer: TrainerConfig
+    batch_size: int = 32
+
+
+def load_experiment_config(path: str) -> ExperimentConfig:
+    """Load dataset, model, and trainer config blocks from YAML."""
+
+    from zynamics import models as _models  # noqa: F401
+
+    data = load_yaml(path)
+    dataset_name = data["dataset"].get("name")
+    if dataset_name != "lorenz":
+        raise KeyError(f"Unsupported dataset config '{dataset_name}'.")
+
+    trainer_data = dict(data.get("trainer", {}))
+    batch_size = int(trainer_data.pop("batch_size", 32))
+    return ExperimentConfig(
+        dataset=LorenzDatasetConfig.model_validate(data["dataset"]),
+        model=BaseModelConfig.from_dict(data["model"]),
+        trainer=TrainerConfig(**trainer_data),
+        batch_size=batch_size,
+    )
+

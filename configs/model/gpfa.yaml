@@ -1,0 +1,12 @@
+name: gpfa
+objective: negative_log_marginal_likelihood
+latent_dim: 3
+bin_width: 20.0
+start_tau: 100.0
+start_eps: 1.0e-3
+min_var_frac: 0.01
+learn_kernel_params: false
+jitter: 1.0e-5
+optimization:
+  name: em
+

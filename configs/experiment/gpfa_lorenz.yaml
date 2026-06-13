@@ -1,0 +1,31 @@
+dataset:
+  name: lorenz
+  neurons: 32
+  num_inits: 4
+  num_trials: 8
+  num_steps: 100
+  burn_steps: 1000
+  train_fraction: 0.8
+  seed: 0
+  latent_dt: 0.015
+  spike_bin_size: 1.0
+  base_rate: 1.0
+
+model:
+  name: gpfa
+  objective: negative_log_marginal_likelihood
+  latent_dim: 3
+  bin_width: 20.0
+  start_tau: 100.0
+  start_eps: 1.0e-3
+  min_var_frac: 0.01
+  learn_kernel_params: false
+  jitter: 1.0e-5
+  optimization:
+    name: em
+
+trainer:
+  epochs: 5
+  batch_size: 4
+  device: cpu
+

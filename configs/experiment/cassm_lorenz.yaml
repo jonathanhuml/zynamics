@@ -1,0 +1,33 @@
+dataset:
+  name: lorenz
+  neurons: 32
+  num_inits: 4
+  num_trials: 8
+  num_steps: 100
+  burn_steps: 1000
+  train_fraction: 0.8
+  seed: 0
+  latent_dt: 0.015
+  spike_bin_size: 1.0
+  base_rate: 1.0
+
+model:
+  name: cassm
+  objective: dense_filter_gaussian_nll
+  latent_dim: 3
+  projection_dim: 8
+  dt: 1.0
+  init_obs_noise: 0.1
+  jitter: 1.0e-5
+  optimization:
+    name: gradient
+    optimizer: AdamW
+    lr: 1.0e-3
+    weight_decay: 0.0
+    gradient_clip: 1.0
+
+trainer:
+  epochs: 5
+  batch_size: 4
+  device: cpu
+

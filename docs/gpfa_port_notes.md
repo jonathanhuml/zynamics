@@ -4,7 +4,8 @@ The local MATLAB reference is `/Users/jonathanhuml/Desktop/gpfa-matlab`.
 The Python Elephant reference is:
 `https://github.com/NeuralEnsemble/elephant/tree/master/elephant/gpfa`.
 
-The implementation in `zynamics.models.gpfa` follows the MATLAB EM structure:
+The implementation in `zynamics.models.gpfa` is being moved toward the Elephant
+Python structure while keeping tensors in PyTorch:
 
 - `gpfaEngine.m`: initialize `gamma`, `eps`, `C`, `d`, and diagonal `R`.
 - `fastfa.m`: initialize `C`, `d`, and `R` with factor analysis.
@@ -13,14 +14,20 @@ The implementation in `zynamics.models.gpfa` follows the MATLAB EM structure:
 - `learnGPparams.m` and `grad_betgam.m`: update each RBF `gamma` from
   posterior autocovariance sufficient statistics.
 
-Elephant makes two translation choices that are useful but not copied exactly:
+Current Elephant-aligned choices:
 
-- It uses `sklearn.decomposition.FactorAnalysis` instead of the MATLAB `fastfa`
-  EM loop. Zynamics ports the FA EM equations in torch to avoid adding sklearn
-  to the model dependency surface.
-- It uses SciPy `L-BFGS-B` on the same `grad_betgam` objective. Zynamics uses
-  PyTorch autograd with `torch.optim.LBFGS` on the equivalent objective so the
-  update can operate directly on tensors.
+- Elephant uses `sklearn.decomposition.FactorAnalysis`; zynamics ports the same
+  FA EM objective in torch to avoid adding sklearn to the model dependency
+  surface.
+- Elephant uses SciPy `L-BFGS-B` for `grad_betgam`; zynamics uses PyTorch
+  autograd with `torch.optim.LBFGS` on the equivalent objective.
+- Elephant exposes both raw latent trajectories and `latent_variable_orth`.
+  Zynamics now returns raw latents in `ModelOutput.latents` and
+  orthonormalized latents plus `Corth` in `ModelOutput.extras`.
+
+Orthonormalization is postprocessing for latent visualization. It should not
+change decoded firing-rate predictions unless the latent trajectories and the
+loading matrix are transformed consistently.
 
 The benchmark epoch definition is unchanged: one GPFA epoch is one full E-step,
 one C/d/R M-step, and the associated `gamma` optimization using the E-step

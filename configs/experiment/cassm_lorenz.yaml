@@ -27,6 +27,12 @@ model:
     weight_decay: 0.0
     gradient_clip: 300.0
 
+preprocessing:
+  observations:
+    name: smooth_firing_rate
+    sampling_precision: 20.0
+    kern_sd_ms: 50.0
+
 trainer:
   epochs: 5
   batch_size: 4

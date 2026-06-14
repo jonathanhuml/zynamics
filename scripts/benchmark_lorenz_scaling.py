@@ -39,8 +39,10 @@ from torch.utils.data import DataLoader
 from zynamics.datasets import LorenzDataset, LorenzDatasetConfig
 from zynamics.models import CASSMConfig, GPFAConfig
 from zynamics.models.base import BaseModelConfig
+from zynamics.preprocessing import PreprocessedDataset, PreprocessingConfig
 from zynamics.training import Trainer, TrainerConfig
 from zynamics.training.strategies import build_strategy
+from zynamics.utils.yaml import load_yaml
 
 
 MODEL_CONFIGS = {
@@ -62,6 +64,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     parser.add_argument("--output-dir", default="artifacts/lorenz_scaling")
+    parser.add_argument("--experiment-config-dir", default="configs/experiment")
     parser.add_argument("--overwrite", action="store_true")
     return parser.parse_args()
 
@@ -123,6 +126,9 @@ def run_case(
         seed=seed,
     )
     train_ds, valid_ds = LorenzDataset.make_splits(dataset_config)
+    preprocessing = build_preprocessing_config(model_name, args.experiment_config_dir)
+    train_ds = PreprocessedDataset(train_ds, preprocessing)
+    valid_ds = PreprocessedDataset(valid_ds, preprocessing)
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True)
     valid_loader = DataLoader(valid_ds, batch_size=args.batch_size, shuffle=False)
     n_time, n_neurons = train_ds.spikes.shape[1:]
@@ -178,6 +184,14 @@ def build_model_config(model_name: str, n_neurons: int) -> BaseModelConfig:
     if model_name == "gpfa":
         return GPFAConfig(latent_dim=3)
     raise KeyError(model_name)
+
+
+def build_preprocessing_config(model_name: str, config_dir: str) -> PreprocessingConfig:
+    path = Path(config_dir) / f"{model_name}_lorenz.yaml"
+    if not path.exists():
+        return PreprocessingConfig()
+    data = load_yaml(path)
+    return PreprocessingConfig.model_validate(data.get("preprocessing", {}))
 
 
 def evaluate_rate_mse(model, loader: Iterable, device: str) -> float:

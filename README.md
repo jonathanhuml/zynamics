@@ -40,5 +40,35 @@ The script writes `lorenz_scaling_results.csv`,
 `lorenz_scaling_results.npy`, and `time_vs_neurons.png` under
 `artifacts/lorenz_scaling/`.
 
+## Loss-Curve Benchmark
+
+```bash
+PYTHONPATH=src python3 scripts/benchmark_lorenz_loss_curves.py \
+  --models cassm gpfa \
+  --neurons 100 \
+  --epochs 30
+```
+
+The script writes `lorenz_loss_history.csv`, `test_rate_mse_curves.png`,
+`test_objective_curves.png`, `train_test_objective_curves.png`, and per-model
+held-out rate trace plots/CSVs under `artifacts/lorenz_loss_curves/`.
+
+## Preprocessing
+
+Experiment YAML files can include a `preprocessing` block. The benchmark
+scripts apply this to dataset observations before models see them, while
+leaving Lorenz ground-truth rates unchanged for MSE metrics.
+
+```yaml
+preprocessing:
+  observations:
+    name: smooth_firing_rate
+    sampling_precision: 20.0
+    kern_sd_ms: 50.0
+```
+
+`configs/experiment/cassm_lorenz.yaml` enables this CASSM-style spike
+smoothing. `configs/experiment/gpfa_lorenz.yaml` leaves observations raw.
+
 See `docs/model_output_contract.md` for the forward-output convention.
 See `docs/optimizer_contract.md` for the benchmark epoch definition.

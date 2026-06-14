@@ -123,11 +123,16 @@ class GPFA(BaseDynamicsModel):
             self.initialize(x)
         posterior = self._e_step(x.float(), get_ll=True)
         reconstruction = self._decode(posterior.latents)
+        latents_orth, corth = self.orthonormalize_latents(posterior.latents)
         return ModelOutput(
             rates=reconstruction.clamp_min(0.0),
             latents=posterior.latents,
             reconstruction=reconstruction,
-            extras={"log_likelihood": posterior.log_likelihood},
+            extras={
+                "log_likelihood": posterior.log_likelihood,
+                "latent_variable_orth": latents_orth,
+                "Corth": corth,
+            },
         )
 
     def loss(
@@ -252,6 +257,20 @@ class GPFA(BaseDynamicsModel):
 
     def _decode(self, latents: Tensor) -> Tensor:
         return torch.einsum("btd,nd->btn", latents, self.C) + self.d
+
+    def orthonormalize_latents(self, latents: Tensor) -> tuple[Tensor, Tensor]:
+        """Elephant-style postprocessing for latent visualization.
+
+        This does not change the observation model. If `C = U S V^T`, then
+        `C x = U (S V^T x)`, so `U` is the orthonormal loading matrix and
+        `S V^T x` is the corresponding orthonormalized latent trajectory.
+        """
+
+        c = self.C.to(device=latents.device, dtype=latents.dtype)
+        corth, singular_values, vh = torch.linalg.svd(c, full_matrices=False)
+        transform = torch.diag(singular_values) @ vh
+        latents_orth = torch.einsum("ij,btj->bti", transform, latents)
+        return latents_orth, corth
 
     def _e_step(self, x: Tensor, get_ll: bool) -> GPFAPosterior:
         batch_size, n_time, n_neurons = x.shape

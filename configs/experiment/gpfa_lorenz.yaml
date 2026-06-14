@@ -28,6 +28,9 @@ model:
   optimization:
     name: em
 
+preprocessing:
+  observations: null
+
 trainer:
   epochs: 5
   batch_size: 4

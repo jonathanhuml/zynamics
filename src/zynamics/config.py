@@ -6,6 +6,7 @@ from dataclasses import dataclass
 
 from zynamics.datasets import LorenzDatasetConfig
 from zynamics.models.base import BaseModelConfig
+from zynamics.preprocessing import PreprocessingConfig
 from zynamics.training import TrainerConfig
 from zynamics.utils.yaml import load_yaml
 
@@ -15,6 +16,7 @@ class ExperimentConfig:
     dataset: LorenzDatasetConfig
     model: BaseModelConfig
     trainer: TrainerConfig
+    preprocessing: PreprocessingConfig
     batch_size: int = 32
 
 
@@ -34,6 +36,6 @@ def load_experiment_config(path: str) -> ExperimentConfig:
         dataset=LorenzDatasetConfig.model_validate(data["dataset"]),
         model=BaseModelConfig.from_dict(data["model"]),
         trainer=TrainerConfig(**trainer_data),
+        preprocessing=PreprocessingConfig.model_validate(data.get("preprocessing", {})),
         batch_size=batch_size,
     )
-

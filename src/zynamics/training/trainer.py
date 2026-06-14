@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import time
 from dataclasses import dataclass, field
-from typing import Iterable
+from typing import Callable, Iterable, Mapping
 
 import torch
 
@@ -25,6 +25,7 @@ class EpochReport:
     train: StepResult
     valid: StepResult | None
     seconds: float
+    metrics: dict[str, float] = field(default_factory=dict)
 
 
 class Trainer:
@@ -38,6 +39,7 @@ class Trainer:
         strategy: OptimizationStrategy,
         train_loader: Iterable,
         valid_loader: Iterable | None = None,
+        epoch_metrics: Mapping[str, Callable[[BaseDynamicsModel], float]] | None = None,
     ) -> list[EpochReport]:
         device = torch.device(self.config.device)
         model.to(device)
@@ -50,12 +52,14 @@ class Trainer:
             strategy.on_epoch_end(model, epoch)
             seconds = time.perf_counter() - start
             valid_result = self.validate(model, strategy, valid_loader, epoch, device)
+            metrics = _compute_epoch_metrics(model, epoch_metrics)
 
             report = EpochReport(
                 epoch=epoch,
                 train=_aggregate_results(train_results),
                 valid=valid_result,
                 seconds=seconds,
+                metrics=metrics,
             )
             self.history.append(report)
 
@@ -100,3 +104,12 @@ def _aggregate_results(results: list[StepResult]) -> StepResult:
         batch_size=total_batch,
         objective=results[0].objective,
     )
+
+
+def _compute_epoch_metrics(
+    model: BaseDynamicsModel,
+    metric_fns: Mapping[str, Callable[[BaseDynamicsModel], float]] | None,
+) -> dict[str, float]:
+    if metric_fns is None:
+        return {}
+    return {name: float(fn(model)) for name, fn in metric_fns.items()}

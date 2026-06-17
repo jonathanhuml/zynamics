@@ -72,8 +72,22 @@ class CASSMConfig(BaseModelConfig):
 class CASSM(BaseDynamicsModel):
     """Thin wrapper around the original CASSM KalmanFilterSmoother.
 
-    The scientific implementation lives in the upstream CASSM package. This
-    class only maps it onto zynamics' model/loss/prediction contracts.
+    ## When to use
+
+    Use CASSM when benchmarking computation-aware sparse state-space models
+    against latent dynamics baselines. The scientific implementation lives in
+    the upstream CASSM package; this class maps it onto zynamics' model, loss,
+    prediction, and device contracts.
+
+    ## Inputs
+
+    `forward` expects observations shaped `(batch, time, neurons)`.
+
+    ## Outputs
+
+    The training path returns the upstream ELBO-style loss in `extras["loss"]`.
+    `predict_rates` calls CASSM's native filtering path and returns nonnegative
+    rate predictions shaped like the input observations.
     """
 
     def __init__(

@@ -72,3 +72,22 @@ smoothing. `configs/experiment/gpfa_lorenz.yaml` leaves observations raw.
 
 See `docs/model_output_contract.md` for the forward-output convention.
 See `docs/optimizer_contract.md` for the benchmark epoch definition.
+
+## Documentation Site
+
+Docs source lives under `docs/` and is configured by `mkdocs.yml`. Model pages
+under `docs/models/` are generated from model class docstrings and config
+defaults. Images referenced from model docstrings should live under
+`docs/assets/` and can be linked as `assets/<filename>`:
+
+```bash
+python scripts/generate_model_docs.py
+python scripts/generate_model_docs.py --check
+```
+
+Install the docs extra and serve the site locally:
+
+```bash
+pip install -e ".[docs]"
+mkdocs serve
+```

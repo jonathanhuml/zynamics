@@ -1,0 +1,17 @@
+site_name: zynamics
+docs_dir: docs
+site_dir: site
+
+nav:
+  - Home: index.md
+  - Models:
+      - Overview: models/index.md
+      - CASSM: models/cassm.md
+      - GPFA: models/gpfa.md
+  - Contracts:
+      - Model Output: model_output_contract.md
+      - Optimizer: optimizer_contract.md
+      - GPFA Port Notes: gpfa_port_notes.md
+
+theme:
+  name: mkdocs

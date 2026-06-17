@@ -73,7 +73,26 @@ class GPFAPosterior:
 
 
 class GPFA(BaseDynamicsModel):
-    """Gaussian Process Factor Analysis with diagonal observation noise."""
+    """Gaussian Process Factor Analysis with diagonal observation noise.
+
+    ## When to use
+
+    Use GPFA as a classical latent-variable baseline for neural population
+    activity with smooth low-dimensional trajectories. It is useful for
+    comparing neural dynamics methods against a likelihood-based EM estimator.
+
+    ## Assumptions
+
+    Observations are modeled with Gaussian noise, a linear loading matrix, a
+    per-neuron offset, diagonal private noise, and RBF Gaussian-process priors
+    over latent trajectories.
+
+    ## Outputs
+
+    `forward` returns posterior latents, observation-space reconstructions,
+    nonnegative rate estimates, orthonormalized latent diagnostics, and the
+    marginal log likelihood used by the loss.
+    """
 
     def __init__(
         self,

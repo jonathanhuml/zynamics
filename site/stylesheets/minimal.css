@@ -110,13 +110,13 @@ h1 {
   font-size: 2.6rem;
 }
 
-body.homepage [role="main"] > h1#zynamics {
+body.homepage [role="main"] > h1#ladys {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-body.homepage [role="main"] > h1#zynamics::before {
+body.homepage [role="main"] > h1#ladys::before {
   content: "";
   display: inline-block;
   width: 72px;

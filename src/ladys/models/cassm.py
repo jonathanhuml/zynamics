@@ -11,11 +11,11 @@ import torch
 from pydantic import Field
 from torch import Tensor
 
-from zynamics.models.base import BaseDynamicsModel, BaseModelConfig, OptimizationConfig
-from zynamics.types import LossOutput, ModelOutput
+from ladys.models.base import BaseDynamicsModel, BaseModelConfig, OptimizationConfig
+from ladys.types import LossOutput, ModelOutput
 
-_MPL_CACHE = Path(tempfile.gettempdir()) / "zynamics_matplotlib"
-_XDG_CACHE = Path(tempfile.gettempdir()) / "zynamics_cache"
+_MPL_CACHE = Path(tempfile.gettempdir()) / "ladys_matplotlib"
+_XDG_CACHE = Path(tempfile.gettempdir()) / "ladys_cache"
 _MPL_CACHE.mkdir(parents=True, exist_ok=True)
 _XDG_CACHE.mkdir(parents=True, exist_ok=True)
 os.environ.setdefault("MPLCONFIGDIR", str(_MPL_CACHE))
@@ -76,7 +76,7 @@ class CASSM(BaseDynamicsModel):
 
     Use CASSM when benchmarking computation-aware sparse state-space models
     against latent dynamics baselines. The scientific implementation lives in
-    the upstream CASSM package; this class maps it onto zynamics' model, loss,
+    the upstream CASSM package; this class maps it onto ladys' model, loss,
     prediction, and device contracts.
 
     ## Inputs

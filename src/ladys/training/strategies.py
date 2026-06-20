@@ -13,8 +13,8 @@ from typing import Iterable
 import torch
 from torch import Tensor
 
-from zynamics.models.base import BaseDynamicsModel, OptimizationConfig
-from zynamics.types import StepResult, move_batch_to_device, observations_from_batch
+from ladys.models.base import BaseDynamicsModel, OptimizationConfig
+from ladys.types import StepResult, move_batch_to_device, observations_from_batch
 
 
 class OptimizationStrategy(ABC):

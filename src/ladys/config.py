@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from zynamics.datasets import LorenzDatasetConfig
-from zynamics.models.base import BaseModelConfig
-from zynamics.preprocessing import PreprocessingConfig
-from zynamics.training import TrainerConfig
-from zynamics.utils.yaml import load_yaml
+from ladys.datasets import LorenzDatasetConfig
+from ladys.models.base import BaseModelConfig
+from ladys.preprocessing import PreprocessingConfig
+from ladys.training import TrainerConfig
+from ladys.utils.yaml import load_yaml
 
 
 @dataclass
@@ -23,7 +23,7 @@ class ExperimentConfig:
 def load_experiment_config(path: str) -> ExperimentConfig:
     """Load dataset, model, and trainer config blocks from YAML."""
 
-    from zynamics import models as _models  # noqa: F401
+    from ladys import models as _models  # noqa: F401
 
     data = load_yaml(path)
     dataset_name = data["dataset"].get("name")

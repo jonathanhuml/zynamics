@@ -9,8 +9,8 @@ import torch
 from pydantic import BaseModel, ConfigDict, Field
 from torch import Tensor, nn
 
-from zynamics.types import LossOutput, ModelOutput
-from zynamics.utils.yaml import load_yaml
+from ladys.types import LossOutput, ModelOutput
+from ladys.utils.yaml import load_yaml
 
 
 class OptimizationConfig(BaseModel):
@@ -98,7 +98,7 @@ class BaseDynamicsModel(nn.Module, ABC):
 def load_model_config(path: str) -> BaseModelConfig:
     """Load a model config from YAML."""
 
-    from zynamics import models as _models  # noqa: F401
+    from ladys import models as _models  # noqa: F401
 
     data = load_yaml(path)
     model_data = data["model"] if "model" in data else data

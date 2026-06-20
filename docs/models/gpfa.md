@@ -7,9 +7,9 @@ Gaussian Process Factor Analysis with diagonal observation noise.
 ## Source
 
 - Registry name: `gpfa`
-- Model class: `zynamics.models.gpfa.GPFA`
-- Config class: `zynamics.models.gpfa.GPFAConfig`
-- Source file: `src/zynamics/models/gpfa.py`
+- Model class: `ladys.models.gpfa.GPFA`
+- Config class: `ladys.models.gpfa.GPFAConfig`
+- Source file: `src/ladys/models/gpfa.py`
 
 ## When to use
 

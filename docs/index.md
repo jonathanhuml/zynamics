@@ -1,4 +1,4 @@
-# zynamics
+# ladys
 
 PyTorch benchmark scaffolding for latent variable models of neural dynamics.
 

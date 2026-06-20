@@ -7,15 +7,15 @@ Thin wrapper around the original CASSM KalmanFilterSmoother.
 ## Source
 
 - Registry name: `cassm`
-- Model class: `zynamics.models.cassm.CASSM`
-- Config class: `zynamics.models.cassm.CASSMConfig`
-- Source file: `src/zynamics/models/cassm.py`
+- Model class: `ladys.models.cassm.CASSM`
+- Config class: `ladys.models.cassm.CASSMConfig`
+- Source file: `src/ladys/models/cassm.py`
 
 ## When to use
 
 Use CASSM when benchmarking computation-aware sparse state-space models
 against latent dynamics baselines. The scientific implementation lives in
-the upstream CASSM package; this class maps it onto zynamics' model, loss,
+the upstream CASSM package; this class maps it onto ladys' model, loss,
 prediction, and device contracts.
 
 ## Inputs

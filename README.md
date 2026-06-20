@@ -1,4 +1,4 @@
-# zynamics
+# ladys
 
 PyTorch benchmark scaffolding for latent variable models of neural dynamics.
 
@@ -8,10 +8,10 @@ and a Lorenz synthetic dataset. Models accept `(batch, time, neurons)` tensors i
 
 ## Initial Examples
 
-- `zynamics.models.cassm`: thin adapter around the upstream sparse CASSM
+- `ladys.models.cassm`: thin adapter around the upstream sparse CASSM
   `KalmanFilterSmoother` implementation. Install the original `cassm` package
   or the local CASSM repository before constructing this model.
-- `zynamics.models.gpfa`: Gaussian-observation GPFA with FA initialization,
+- `ladys.models.gpfa`: Gaussian-observation GPFA with FA initialization,
   EM updates, and RBF GP timescale learning. One full-dataset E/M update is
   treated as one benchmark epoch.
 
@@ -94,4 +94,4 @@ mkdocs serve
 
 The GitHub Pages workflow publishes the root homepage at
 `https://zkunkworks.com/` from `website/` and the generated documentation at
-`https://zkunkworks.com/zynamics/`.
+`https://zkunkworks.com/ladys/`.

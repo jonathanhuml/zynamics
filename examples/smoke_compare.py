@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from torch.utils.data import DataLoader
 
-from zynamics.config import load_experiment_config
-from zynamics.datasets import LorenzDataset, LorenzDatasetConfig
-from zynamics.models import CASSMConfig, GPFAConfig
-from zynamics.training import Trainer, TrainerConfig
-from zynamics.training.strategies import build_strategy
+from ladys.config import load_experiment_config
+from ladys.datasets import LorenzDataset, LorenzDatasetConfig
+from ladys.models import CASSMConfig, GPFAConfig
+from ladys.training import Trainer, TrainerConfig
+from ladys.training.strategies import build_strategy
 
 
 def run_one(config, train_loader, valid_loader, n_neurons: int, n_time: int):

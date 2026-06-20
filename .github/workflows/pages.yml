@@ -39,7 +39,7 @@ jobs:
           rm -rf public
           mkdir -p public
           cp -R website/. public/
-          mkdocs build --strict --site-dir public/zynamics
+          mkdocs build --strict --site-dir public/ladys
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

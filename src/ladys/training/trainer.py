@@ -8,9 +8,9 @@ from typing import Callable, Iterable, Mapping
 
 import torch
 
-from zynamics.models.base import BaseDynamicsModel
-from zynamics.training.strategies import OptimizationStrategy
-from zynamics.types import StepResult, move_batch_to_device
+from ladys.models.base import BaseDynamicsModel
+from ladys.training.strategies import OptimizationStrategy
+from ladys.types import StepResult, move_batch_to_device
 
 
 @dataclass

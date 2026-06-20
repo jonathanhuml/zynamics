@@ -1,8 +1,8 @@
 from torch.utils.data import DataLoader
 
-from zynamics.datasets import LorenzDataset, LorenzDatasetConfig
-from zynamics.models import CASSMConfig, GPFAConfig
-from zynamics.training.strategies import build_strategy
+from ladys.datasets import LorenzDataset, LorenzDatasetConfig
+from ladys.models import CASSMConfig, GPFAConfig
+from ladys.training.strategies import build_strategy
 
 
 def test_model_contracts_smoke():

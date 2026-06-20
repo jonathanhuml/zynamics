@@ -24,8 +24,8 @@ import os
 import time
 from pathlib import Path
 
-os.environ.setdefault("MPLCONFIGDIR", "/private/tmp/zynamics_matplotlib")
-os.environ.setdefault("XDG_CACHE_HOME", "/private/tmp/zynamics_cache")
+os.environ.setdefault("MPLCONFIGDIR", "/private/tmp/ladys_matplotlib")
+os.environ.setdefault("XDG_CACHE_HOME", "/private/tmp/ladys_cache")
 Path(os.environ["MPLCONFIGDIR"]).mkdir(parents=True, exist_ok=True)
 Path(os.environ["XDG_CACHE_HOME"]).mkdir(parents=True, exist_ok=True)
 
@@ -37,13 +37,13 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
-from zynamics.datasets import LorenzDataset, LorenzDatasetConfig
-from zynamics.models import CASSMConfig, GPFAConfig
-from zynamics.models.base import BaseModelConfig
-from zynamics.preprocessing import PreprocessedDataset, PreprocessingConfig
-from zynamics.training import Trainer, TrainerConfig
-from zynamics.training.strategies import build_strategy
-from zynamics.utils.yaml import load_yaml
+from ladys.datasets import LorenzDataset, LorenzDatasetConfig
+from ladys.models import CASSMConfig, GPFAConfig
+from ladys.models.base import BaseModelConfig
+from ladys.preprocessing import PreprocessedDataset, PreprocessingConfig
+from ladys.training import Trainer, TrainerConfig
+from ladys.training.strategies import build_strategy
+from ladys.utils.yaml import load_yaml
 
 
 MODEL_CONFIGS = {

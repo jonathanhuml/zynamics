@@ -19,8 +19,8 @@ import torch
 from pydantic import Field
 from torch import Tensor
 
-from zynamics.models.base import BaseDynamicsModel, BaseModelConfig, OptimizationConfig
-from zynamics.types import LossOutput, ModelOutput, observations_from_batch
+from ladys.models.base import BaseDynamicsModel, BaseModelConfig, OptimizationConfig
+from ladys.types import LossOutput, ModelOutput, observations_from_batch
 
 
 @BaseModelConfig.register

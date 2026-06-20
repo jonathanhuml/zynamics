@@ -1,3 +1,51 @@
 {% extends "base.html" %}
 
+{% block site_nav -%}
+{%- if nav|length>1 %}
+<ul class="nav navbar-nav">
+{%- for nav_item in nav %}
+{%- if nav_item.title != "Home" %}
+{%- if nav_item.children %}
+  <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle{% if nav_item.active %} active" aria-current="page{% endif %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ nav_item.title }}</a>
+    <ul class="dropdown-menu">
+    {%- for nav_item in nav_item.children %}
+      {%- include "nav-sub.html" %}
+    {%- endfor %}
+    </ul>
+  </li>
+{%- else %}
+  <li class="nav-item">
+    <a href="{{ nav_item.url|url }}" class="nav-link{% if nav_item.active %} active" aria-current="page{% endif %}">{{ nav_item.title }}</a>
+  </li>
+{%- endif %}
+{%- endif %}
+{%- endfor %}
+</ul>
+{%- endif %}
+{%- endblock %}
+
+{% block search_button -%}
+{{ super() }}
+<li class="nav-item">
+  <a href="/" class="nav-link zkunkworks-nav-link" aria-label="zkunkworks home">
+    <img class="zkunkworks-nav-logo" src="{{ 'assets/skunk.png'|url }}" alt="">
+  </a>
+</li>
+{%- endblock %}
+
 {% block next_prev %}{% endblock %}
+
+{% block footer -%}
+<hr>
+{%- if config.copyright %}
+<p>{{ config.copyright }}</p>
+{%- endif %}
+<p>
+  <a class="zkunkworks-footer-link" href="/">
+    <span>Built by</span>
+    <img class="zkunkworks-footer-logo" src="{{ 'assets/skunk.png'|url }}" alt="">
+    <span>zkunkworks</span>
+  </a>
+</p>
+{%- endblock %}

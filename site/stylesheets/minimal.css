@@ -64,6 +64,19 @@ body > .container {
   text-decoration: underline;
 }
 
+.zkunkworks-nav-link {
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.65rem;
+  padding-right: 0;
+}
+
+.zkunkworks-nav-logo {
+  display: block;
+  width: 34px;
+  height: auto;
+}
+
 .navbar-dark .navbar-toggler {
   border-color: #111111;
 }
@@ -143,4 +156,26 @@ hr {
 
 footer {
   color: #111111;
+}
+
+.zkunkworks-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #111111;
+  text-decoration: none;
+}
+
+.zkunkworks-footer-link:hover {
+  color: #000000;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.zkunkworks-footer-logo {
+  display: inline-block;
+  width: 28px;
+  height: auto;
+  flex: 0 0 auto;
 }

@@ -56,7 +56,7 @@
 
       .site-logo {
         display: block;
-        width: 58px;
+        width: 76px;
         height: auto;
       }
 
@@ -110,15 +110,8 @@
       .brand {
         display: flex;
         align-items: center;
-        gap: 22px;
+        justify-content: center;
         min-width: 0;
-      }
-
-      .logo {
-        display: block;
-        width: 132px;
-        height: auto;
-        flex: 0 0 auto;
       }
 
       h1 {
@@ -162,8 +155,8 @@
       .content {
         display: grid;
         gap: 24px;
-        width: 100%;
-        padding-left: 154px;
+        width: min(680px, 100%);
+        margin: 0 auto;
       }
 
       .projects {
@@ -235,7 +228,7 @@
         }
 
         .site-logo {
-          width: 46px;
+          width: 60px;
         }
 
         .top-nav {
@@ -248,27 +241,14 @@
         }
 
         main {
-          width: min(358px, calc(100% - 32px));
+          width: min(270px, calc(100% - 32px));
           min-height: calc(100vh - 62px);
-          margin-left: 16px;
-          margin-right: auto;
+          margin: 0 auto;
           padding: 40px 0 64px;
-        }
-
-        .brand {
-          gap: 14px;
-        }
-
-        .logo {
-          width: 72px;
         }
 
         h1 {
           font-size: 2.75rem;
-        }
-
-        .content {
-          padding-left: 86px;
         }
       }
 
@@ -280,7 +260,7 @@
         }
 
         .site-logo {
-          width: 40px;
+          width: 50px;
         }
 
         .top-nav {
@@ -298,25 +278,13 @@
         }
 
         main {
-          width: calc(100% - 28px);
-          margin-left: 14px;
+          width: min(320px, calc(100% - 28px));
+          margin: 0 auto;
           padding: 34px 0 56px;
-        }
-
-        .brand {
-          gap: 12px;
-        }
-
-        .logo {
-          width: 54px;
         }
 
         h1 {
           font-size: 2rem;
-        }
-
-        .content {
-          padding-left: 66px;
         }
       }
     </style>
@@ -352,7 +320,6 @@
     <main>
       <header>
         <div class="brand">
-          <img class="logo" src="img/skunk.png" alt="zkunkworks skunk logo">
           <h1>zkunkworks</h1>
         </div>
         <div class="content">
